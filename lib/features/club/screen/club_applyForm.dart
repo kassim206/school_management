@@ -26,9 +26,10 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('TextFormField Example'),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.yellowAccent,
+        title: Text('Registration'),
+      ),
       body: ListView(
         children: [
           Padding(
@@ -62,7 +63,7 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                     ),
                     onPressed: () {
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => EnglishGrpChat(),)); // Add onPressed logic here
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(),)); // Add onPressed logic here
                     },
                     child: Text(
                       'Continue to Join here..',

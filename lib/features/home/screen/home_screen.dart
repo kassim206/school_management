@@ -7,6 +7,8 @@ import 'package:draggable_home/draggable_home.dart';
 import '../../../core/globel_variable.dart';
 import '../../club/screen/club_screen.dart';
 import '../../courses/screen/course_screen.dart';
+import '../../library/screen/notes.dart';
+import '../../location/screen/location_screen.dart';
 // Assuming you have your other classes imported
 
 class HomeScreen extends StatefulWidget {
@@ -251,28 +253,33 @@ class _HomeScreenState extends State<HomeScreen> {
                           duration: const Duration(milliseconds: 100),
                           child: Stack(
                             children: [
-                              Container(
-                                width: w,
-                                height: h * 0.18,
-                                decoration: BoxDecoration(
-                                  color: Colors.pink[50],
-                                  image: const DecorationImage(
-                                      image: AssetImage("assets/img/location.jpeg"),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(12),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => LocationScreen(),));
+                                },
+                                child: Container(
+                                  width: w,
+                                  height: h * 0.18,
+                                  decoration: BoxDecoration(
+                                    color: Colors.pink[50],
+                                    image: const DecorationImage(
+                                        image: AssetImage("assets/img/location.jpeg"),
+                                        fit: BoxFit.cover),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Location',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                        ),
+                                      )),
                                 ),
-                                child: const Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Location',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                            fontSize: 20),
-                                      ),
-                                    )),
                               ),
                             ],
                           ),
@@ -289,28 +296,35 @@ class _HomeScreenState extends State<HomeScreen> {
                           duration: const Duration(milliseconds: 100),
                           child: Stack(
                             children: [
-                              Container(
-                                width: w,
-                                height: h * 0.18,
-                                decoration: BoxDecoration(
-                                  color: Colors.pink[50],
-                                  image: const DecorationImage(
-                                      image: AssetImage("assets/img/libimg.png"),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(12),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context)
+                                      => NotesScreen(),));
+                                },
+                                child: Container(
+                                  width: w,
+                                  height: h * 0.18,
+                                  decoration: BoxDecoration(
+                                    color: Colors.pink[50],
+                                    image: const DecorationImage(
+                                        image: AssetImage("assets/img/libimg.png"),
+                                        fit: BoxFit.cover),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'Library',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                        ),
+                                      )),
                                 ),
-                                child: const Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text(
-                                        'Library',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                            fontSize: 20),
-                                      ),
-                                    )),
                               ),
                             ],
                           ),

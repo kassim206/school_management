@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/globel_variable.dart';
+import '../../home/widget/club_data.dart';
+import 'clun_view.dart';
 
 class ClubPage extends StatelessWidget {
   const ClubPage({Key? key}) : super(key: key);
@@ -14,24 +15,30 @@ class ClubPage extends StatelessWidget {
         elevation: 0,
       ),
       body: ListView.separated(
-        itemCount: 10,
+        itemCount: homeClubPageData.length,
         separatorBuilder: (context, index) => SizedBox(height: 8.0),
         itemBuilder: (context, index) {
-          return Container(
-            height: h * 0.2,
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
-            decoration: BoxDecoration(
-              image: const DecorationImage(image: AssetImage("assets/img/clubano.png"),fit: BoxFit.cover),
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: Offset(0, 2), // changes position of shadow
-                ),
-              ],
+          return GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ClubView(),));
+            },
+            child: Container(
+              height: h * 0.095,
+              margin: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 8.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Center(child: Text(  homeClubPageData[index].clubname,
+                style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black),)),
             ),
           );
         },

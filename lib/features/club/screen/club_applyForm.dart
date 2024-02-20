@@ -63,7 +63,26 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                     ),
                     onPressed: () {
-                     Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen(),)); // Add onPressed logic here
+                      if(
+                      _controller1?.text == "" ||  _controller2?.text == "" ||  _controller3?.text == "" ||
+                          _controller4?.text == ""
+                      ){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Enter all details")));
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Successfully joined!'),
+                            duration: Duration(milliseconds: 500), // Snackbar duration in milliseconds
+                          ),
+                        );
+                        Future.delayed(Duration(milliseconds: 500), () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ChatScreen()),
+                          );
+                        });
+                      }
+                      // Add onPressed logic here
                     },
                     child: Text(
                       'Continue to Join here..',

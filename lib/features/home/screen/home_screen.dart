@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: GoogleFonts.lexend(
         fontWeight: FontWeight.w400,
         fontSize: w * 0.04,
-        color: Colors.black,
+        color: Colors.white,
       ),
     );
   }
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget headerWidget(BuildContext context) {
     return Container(
-      color: Colors.yellowAccent,
+      color: Colors.blue.shade900,
       child: Column(
         children: [
           SizedBox(

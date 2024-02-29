@@ -99,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellowAccent,
+        backgroundColor: Colors.blue.shade900,
         title: Text("Chat Screen English Club"),
       ),
       body: Column(

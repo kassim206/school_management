@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'enggroup_chat.dart';
+import 'events_eng.dart';
 class ClubApplicationForm extends StatefulWidget {
   @override
   _ClubApplicationFormState createState() => _ClubApplicationFormState();
@@ -27,7 +28,7 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellowAccent,
+        backgroundColor: Colors.blue.shade900,
         title: Text('Registration'),
       ),
       body: ListView(
@@ -76,10 +77,11 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
                           ),
                         );
                         Future.delayed(Duration(milliseconds: 500), () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ChatScreen()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => ChatScreen()),
+                          // );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => EventsEng(),));
                         });
                       }
                       // Add onPressed logic here

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:school_management/features/club/screen/science_club.dart';
+import 'package:school_management/features/club/screen/social_club.dart';
+import 'package:school_management/features/club/screen/sports_club.dart';
 import '../../../core/globel_variable.dart';
 import '../../home/widget/club_data.dart';
 import 'clun_view.dart';
@@ -10,7 +13,7 @@ class ClubPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellowAccent,
+        backgroundColor: Colors.blue.shade900,
         title: Text('Clubs'),
         elevation: 0,
       ),
@@ -20,7 +23,17 @@ class ClubPage extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ClubView(),));
+              switch(index){
+                case 0: Navigator.push(context, MaterialPageRoute(builder: (context) => ClubView(),));
+                break;
+                case 1:  Navigator.push(context, MaterialPageRoute(builder: (context) => SporstsClub(),));
+                break;
+                case 2:  Navigator.push(context, MaterialPageRoute(builder: (context) => ScienceClub(),));
+                break;
+                case 3:  Navigator.push(context, MaterialPageRoute(builder: (context) => SocialClub(),));
+                break;
+              }
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => ClubView(),));
             },
             child: Container(
               height: h * 0.095,

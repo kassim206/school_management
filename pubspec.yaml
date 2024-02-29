@@ -40,6 +40,13 @@ dependencies:
   draggable_home: ^1.0.5
   flutter_bounce: ^1.1.0
   url_launcher: ^6.2.4
+  firebase_core: ^2.25.4
+  cloud_firestore: ^4.15.5
+  firebase_auth: ^4.17.5
+  google_sign_in: ^6.2.1
+  shared_preferences: ^2.2.2
+  syncfusion_flutter_pdfviewer: ^24.2.8
+
 
 dev_dependencies:
   flutter_test:

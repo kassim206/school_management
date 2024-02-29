@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:school_management/features/library/screen/pdf_pageview.dart';
 
 import '../../../core/globel_variable.dart';
 
@@ -10,7 +11,7 @@ class PdfViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellowAccent,
+        backgroundColor: Colors.blue.shade900,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -22,10 +23,10 @@ class PdfViewScreen extends StatelessWidget {
           shrinkWrap: true,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
-          childAspectRatio: 1/1.4,
+          childAspectRatio: 1/1.0,
           crossAxisCount: 3,
           children:
-          List.generate(20, (index) {
+          List.generate(01, (index) {
             return MiniCard();
           },
           ),
@@ -42,13 +43,18 @@ class MiniCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/img/pdfimg.png'),
-            fit: BoxFit.cover
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => PdfPageView(),));
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/img/pdfimg.png'),
+              fit: BoxFit.cover
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
     );
   }

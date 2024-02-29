@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,11 +7,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:school_management/core/globel_variable.dart';
 
+import '../../../model/accounts_model.dart';
 import 'login_page.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  bool obsc = false;
+  final _auth = FirebaseAuth.instance;
+  final usernamecontroller = TextEditingController();
+  final signmailcontroller = TextEditingController();
+  final signpasswardcontroller = TextEditingController();
+  final signconfirmpassword = TextEditingController();
+  final signphonecontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +34,7 @@ class SignUpPage extends StatelessWidget {
           Container(
             width: w,
             height: h,
-            color: Colors.yellowAccent,
+            color: Colors.blue.shade900,
             child:  Padding(
               padding:  EdgeInsets.only(left: w * .078, right: w * .078),
               child: Column(
@@ -38,10 +53,10 @@ class SignUpPage extends StatelessWidget {
                           child: CircleAvatar(
                             backgroundColor: Colors.white,
                             radius: w * .042,
-                            child: const Center(
+                            child:  Center(
                                 child: Icon(
                                   Icons.arrow_circle_left_rounded,
-                                  color: Colors.yellow,
+                                  color: Colors.blue.shade900,
                                 )),
                           ),
                         ),
@@ -96,6 +111,7 @@ class SignUpPage extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: w * .028),
                             child: TextFormField(
+                              controller: usernamecontroller,
                               style: GoogleFonts.poppins(
                                   color: Color(0xffBBC5CD),
                                   fontSize: w * .039),
@@ -133,6 +149,7 @@ class SignUpPage extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: w * .028),
                             child: TextFormField(
+                              controller: signmailcontroller,
                               autovalidateMode:
                               AutovalidateMode.onUserInteraction,
                               style: GoogleFonts.poppins(
@@ -262,11 +279,12 @@ class SignUpPage extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: w * .028),
                             child: TextFormField(
+                              controller: signphonecontroller,
                               obscureText: true,
                               style: GoogleFonts.poppins(
                                   color: Color(0xffBBC5CD),
                                   fontSize: w * .039),
-                              keyboardType: TextInputType.name,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -292,7 +310,8 @@ class SignUpPage extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: w * .028),
                             child: TextFormField(
-                              obscureText: true,
+                              controller: signpasswardcontroller,
+                              obscureText: obsc,
                               style: GoogleFonts.poppins(
                                   color: Color(0xffBBC5CD),
                                   fontSize: w * .039),
@@ -306,6 +325,14 @@ class SignUpPage extends StatelessWidget {
                                     fontSize: w * .039),
                                 filled: true,
                                 fillColor: Colors.white,
+                                  suffixIcon:  GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        obsc = ! obsc;
+                                      });
+                                    },
+                                    child: obsc?Icon(Icons.visibility):Icon(Icons.visibility_off),
+                                  )
                               ),
                             ),
                           ),
@@ -322,6 +349,7 @@ class SignUpPage extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: w * .028),
                             child: TextFormField(
+                              controller: signconfirmpassword,
                               obscureText: true,
                               style: GoogleFonts.poppins(
                                   color: Color(0xffBBC5CD),
@@ -348,10 +376,27 @@ class SignUpPage extends StatelessWidget {
                     child: Center(
                       child: InkWell(
                         onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
+                          var model= UsersModel(userEmail:signmailcontroller.text,
+                            userName: usernamecontroller.text,
+                            userPhoneNumber: signphonecontroller.text,
+                            userPassword: signpasswardcontroller.text,
+                            createDate: DateTime.now(), imageUrl: '', lastLogged:DateTime.now(),
+                            uid: '',
                           );
+                          _auth
+                              .createUserWithEmailAndPassword(
+                            email: signmailcontroller.text,
+                            password: signpasswardcontroller.text,
+                          )
+                              .then((value) {
+                            FirebaseFirestore.instance
+                                .collection("users").add(model.toJson()).then((value) =>
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>  LoginPage())),);
+
+                          });
 
                         },
                         child: Container(

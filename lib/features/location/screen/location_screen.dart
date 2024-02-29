@@ -10,7 +10,7 @@ class LocationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellowAccent,
+        backgroundColor: Colors.blue.shade900,
         title: Text("Location"),
         centerTitle: true,
       ),
@@ -125,13 +125,14 @@ class UniversityMap extends StatelessWidget {
           ),
           GestureDetector(
             onTap: (){
-             Navigator.push(context, MaterialPageRoute(builder: (context) =>  LocationScreen(),));
+             // Navigator.push(context, MaterialPageRoute(builder: (context) =>  LocationScreen(),));
+              Navigator.pop(context);
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 child: Center(child: Icon(Icons.arrow_back)),
-                backgroundColor: Colors.yellowAccent,
+                backgroundColor: Colors.blue.shade900,
               ),
             ),
           )

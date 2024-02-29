@@ -1,14 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:school_management/features/auth/screen/signUp_page.dart';
-
 import '../../../core/globel_variable.dart';
 import '../../home/screen/home_screen.dart';
+import 'authentication.dart';
 
-class LoginPage extends StatelessWidget {
+final auth1=Authentication();
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool obsck = true;
+  final _auth=FirebaseAuth.instance;
+  final signmailcontroller =TextEditingController();
+  final signpasswardcontroller =TextEditingController();
+  getUser({required String email, required String password}){
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email, password: password).then((value) =>
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) =>HomeScreen())));
+    FirebaseFirestore.instance.collection("users")
+        .doc("QJpZYaGBogcBaFAjegJF")
+        .update({
+      "lastLogged":DateTime.now()
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +42,8 @@ class LoginPage extends StatelessWidget {
   Container(
     height: h,
     width: w,
-    decoration: const BoxDecoration(
-        color: Colors.yellowAccent,
+    decoration:  BoxDecoration(
+        color: Colors.blue.shade900,
         // image: DecorationImage(
         //     image: AssetImage('assets/img/sch1.jpg'),
         //     fit: BoxFit.fill)
@@ -44,7 +67,7 @@ class LoginPage extends StatelessWidget {
                     style: GoogleFonts.lexend(
                         fontSize: w * .1,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                        color: Colors.white),
                   ),
                   SizedBox(
                     height: h * .055,
@@ -58,7 +81,7 @@ class LoginPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(left: w * .028),
                       child: TextFormField(
-
+                        controller: signmailcontroller,
                         style: GoogleFonts.lexend(
                             color: Color(0xff9E9E9E),
                             fontWeight: FontWeight.w500,
@@ -89,6 +112,8 @@ class LoginPage extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.only(left: w * .028),
                       child: TextFormField(
+                        controller: signpasswardcontroller,
+                        obscureText: obsck,
                         style: GoogleFonts.lexend(
                             color: Color(0xff9E9E9E),
                             fontWeight: FontWeight.w500,
@@ -102,6 +127,14 @@ class LoginPage extends StatelessWidget {
                               color: Color(0xff9E9E9E),
                               fontWeight: FontWeight.w500,
                               fontSize: w * .035),
+                            suffixIcon: GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  obsck = ! obsck;
+                                });
+                              },
+                              child: obsck?Icon(Icons.visibility):Icon(Icons.visibility_off),
+                            )
                         ),
                       ),
                     ),
@@ -111,7 +144,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                      getUser(email:signmailcontroller.text, password:signpasswardcontroller.text);
                     },
                     child: Container(
                       height: h * .065,
@@ -130,6 +163,25 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // SizedBox(height: h*0.01,),
+                  // InkWell(
+                  //   onTap: (){
+                  //     auth1.signup(context);
+                  //   },
+                  //   child: Center(
+                  //     child: Container(
+                  //       width: w*.10,
+                  //       height: h*.07,
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(15),
+                  //           color: Colors.white
+                  //       ),
+                  //       child: Image(image: AssetImage("assets/img/google_logo.webp"),
+                  //         // fit: BoxFit.cover,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -150,7 +202,7 @@ class LoginPage extends StatelessWidget {
                       style: GoogleFonts.lexend(
                           fontSize: w * .039,
                           decoration: TextDecoration.underline,
-                          color: Colors.black),
+                          color: Colors.white),
                     ),
                   ),
                 ),

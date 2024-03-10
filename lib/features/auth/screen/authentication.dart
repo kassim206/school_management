@@ -33,15 +33,15 @@ class Authentication {
 
       if (result.additionalUserInfo!.isNewUser) {
         var a = UsersModel(
-            userEmail: user?.email,
-            userName: user?.displayName,
-            userPhoneNumber: user.phoneNumber ?? "",
-            userPassword: "",
-            imageUrl: user?.photoURL ?? '',
-            uid: currentUserId,
-            createDate: DateTime.now(),
-            lastLogged: DateTime.now(),
-           );
+          userEmail: user?.email,
+          userName: user?.displayName,
+          userPhoneNumber: user.phoneNumber ?? "",
+          userPassword: "",
+          imageUrl: user?.photoURL ?? '',
+          uid: currentUserId,
+          createDate: DateTime.now(),
+          lastLogged: DateTime.now(),
+        );
         FirebaseFirestore.instance
             .collection('users')
             .doc(user!.uid)

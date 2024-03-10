@@ -1,125 +1,191 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:school_management/core/globel_variable.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_animated_button/flutter_animated_button.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:school_management/features/club/widget/eng_data.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class EventsEng extends StatelessWidget {
+import '../../../core/globel_variable.dart';
+
+class EventsEng extends StatefulWidget {
   const EventsEng({super.key});
 
   @override
+  State<EventsEng> createState() => _EventsEngState();
+}
+
+class _EventsEngState extends State<EventsEng> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:  Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16)
-                .copyWith(right: 0),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 23,
-                  backgroundImage: NetworkImage(
-                      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/english-conversation-club-design-template-4728930e0bb10ddf203ca523e5aa3a77_screen.jpg?ts=1621456756"),
-                ),
-                Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "userName",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.white),
-                          )
-                        ],
-                      ),
-                    )),
-                IconButton(
-                    color: Colors.white,
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => Dialog(
-                          child: ListView(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shrinkWrap: true,
-                              children: [
-                                'Delete',
-                              ]
-                                  .map((e) => InkWell(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12, horizontal: 16),
-                                  child: Text(e),
-                                ),
-                              ))
-                                  .toList()),
-                        ),
-                      );
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          actions: [
+              Stack(
+                children: [
+                  AnimatedButton(
+                    onPress: () {
+                      String url =
+                          "https://chat.whatsapp.com/DKH2AHY5uB7HXeqYYFfVnp";
+                      launch(url);
                     },
-                    icon: const Icon(Icons.more_vert))
-              ],
-            ),
+                    height: 40,
+                    width: 100,
+                    text: 'Join',
+                    isReverse: true,
+                    selectedTextColor: Colors.black,
+                    transitionType: TransitionType.LEFT_BOTTOM_ROUNDER,
+                    textStyle: TextStyle(fontSize: 12),
+                    backgroundColor: Colors.green,
+                    borderColor: Colors.white,
+                    borderWidth: 1,
+                  ), Positioned(
+                    top: 8,left: 5,
+                      child: CircleAvatar(
+                        radius: 15,
+                          child: Image.asset('assets/png/whatsapp.png')),
+    ),
+                ],
+              ),
+          ],
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.blue.shade900,
+          elevation: 0,
+          title: Text(
+            "Events",
+            style: GoogleFonts.aladin(fontSize: 23),
           ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.only(top: 8),
-            child: RichText(
-              text: TextSpan(
-                  style: const TextStyle(color: Colors.black),
-                  children: [
-                    TextSpan(
-                        text: 'username',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        )),
-                    TextSpan(text: ' Hey guys description')
-                  ]),
-            ),
-          ),
-          SizedBox(
-              height: h * 0.35,
-              width: double.infinity,
-              child: Image.network(
-                  'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/english-conversation-club-design-'
-                      'template-4728930e0bb10ddf203ca523e5aa3a77_screen.jpg?ts=1621456756')),
-          Row(
+        ),
+        body: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
             children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.comment_outlined,
-                  )),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.separated(
+                  itemCount: img.length,
+                  shrinkWrap: true,
+                  separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10), // Add a separator between items
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${img[index]['description']},",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.black,fontSize: 16),
+                                      )
+                                    ],
+                                  ),
+                                )),
+                            IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => Dialog(
+                                      child: ListView(
+                                          padding:
+                                          const EdgeInsets.symmetric(vertical: 16),
+                                          shrinkWrap: true,
+                                          children: [
+                                            'Share',
+                                          ]
+                                              .map((e) => InkWell(
+                                            child: Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                  vertical: 12, horizontal: 16),
+                                              child: Text(e),
+                                            ),
+                                          ))
+                                              .toList()),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.more_vert))
+                          ],
+                        ),
+                        Stack(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.35, // Use MediaQuery to get screen height
+                              width: double.infinity,
+                              child: Image.network(
+                                img[index]['image'], // Use img[index]['image'] to access the image URL
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                height: 30,
+                                width: 80,
+                                color: Colors.indigo,
+                                child: Center(child: Text("${img[index]['date']}",style: TextStyle(color: Colors.white),)),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              )
+          
+              // Row(
+              //   children: [
+              //     IconButton(
+              //         onPressed: () {},
+              //         icon: const Icon(
+              //           Icons.favorite,
+              //           color: Colors.red,
+              //         )),
+              //     IconButton(
+              //         onPressed: () {},
+              //         icon: const Icon(
+              //           Icons.comment_outlined,
+              //         )),
+              //     IconButton(
+              //         onPressed: () {},
+              //         icon: const Icon(
+              //           Icons.send,
+              //         )),
+              //     Expanded(
+              //         child: Align(
+              //             alignment: Alignment.bottomRight,
+              //             child: IconButton(
+              //                 onPressed: () {},
+              //                 icon: const Icon(Icons.bookmark_border))))
+              //   ],
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 16),
+              //   child: Column(
+              //     mainAxisSize: MainAxisSize.min,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Container(
+              //         padding: const EdgeInsets.symmetric(vertical: 2),
+              //         child: Text(
+              //           '9/08/2023',
+              //           style: TextStyle(fontSize: 13, color: Colors.grey),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // )
             ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("1,610 likes", style: TextStyle(color: Colors.grey)),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: Text(
-                      'View all 100 comments',
-                      style: TextStyle(fontSize: 13, color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
+        ),
       ),
     );
   }

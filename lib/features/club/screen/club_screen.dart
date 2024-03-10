@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:school_management/features/club/screen/science_club.dart';
-import 'package:school_management/features/club/screen/social_club.dart';
-import 'package:school_management/features/club/screen/sports_club.dart';
+import 'package:school_management/features/club/screen/scienceclub_view.dart';
+import 'package:school_management/features/club/screen/sportsclub_view.dart';
+
 import '../../../core/globel_variable.dart';
 import '../../home/widget/club_data.dart';
-import 'clun_view.dart';
+import 'engclub_view.dart';
 
 class ClubPage extends StatelessWidget {
   const ClubPage({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class ClubPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.blue.shade900,
         title: Text('Clubs'),
         elevation: 0,
@@ -26,11 +28,9 @@ class ClubPage extends StatelessWidget {
               switch(index){
                 case 0: Navigator.push(context, MaterialPageRoute(builder: (context) => ClubView(),));
                 break;
-                case 1:  Navigator.push(context, MaterialPageRoute(builder: (context) => SporstsClub(),));
+                case 1:  Navigator.push(context, MaterialPageRoute(builder: (context) => SportsClubView(),));
                 break;
-                case 2:  Navigator.push(context, MaterialPageRoute(builder: (context) => ScienceClub(),));
-                break;
-                case 3:  Navigator.push(context, MaterialPageRoute(builder: (context) => SocialClub(),));
+                case 2:  Navigator.push(context, MaterialPageRoute(builder: (context) => ScienceClubView(),));
                 break;
               }
               // Navigator.push(context, MaterialPageRoute(builder: (context) => ClubView(),));

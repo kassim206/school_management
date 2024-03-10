@@ -28,6 +28,7 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.blue.shade900,
         title: Text('Registration'),
       ),
@@ -65,9 +66,12 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
                     ),
                     onPressed: () {
                       if(
-                      _controller1?.text == "" ||  _controller2?.text == "" ||  _controller3?.text == "" ||
+                          _controller1?.text == "" ||
+                          _controller2?.text == "" ||
+                          _controller3?.text == "" ||
                           _controller4?.text == ""
-                      ){
+                      )
+                      {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Enter all details")));
                       }else{
                         ScaffoldMessenger.of(context).showSnackBar(

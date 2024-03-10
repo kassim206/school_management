@@ -12,50 +12,65 @@ class PdfViewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
+        foregroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          SizedBox(height: h*0.01,),
-        Expanded(child: GridView.count(
-          shrinkWrap: true,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          childAspectRatio: 1/1.0,
-          crossAxisCount: 3,
-          children:
-          List.generate(01, (index) {
-            return MiniCard();
-          },
+      body: GestureDetector(
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PdfPageView(),));
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 40,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Center(child: Text("Syllabus")),
           ),
-        )
-        )
-          ],
         ),
       ),
     );
   }
 }
-class MiniCard extends StatelessWidget {
-  const MiniCard({Key? key}):super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PdfPageView(),));
-      },
-      child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/img/pdfimg.png'),
-              fit: BoxFit.cover
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-      ),
-    );
-  }
-}
+// class PdfViewScreen extends StatelessWidget {
+//   const PdfViewScreen({Key? key}):super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: (){
+//         Navigator.push(context, MaterialPageRoute(builder: (context) => PdfPageView(),));
+//       },
+//       child: Padding(
+//         padding: const EdgeInsets.all(8.0),
+//         child: Container(
+//           height: 40,
+//           width: double.infinity,
+//           decoration: const BoxDecoration(
+//             color: Colors.white,
+//             borderRadius: BorderRadius.all(Radius.circular(10)),
+//             boxShadow: [
+//               BoxShadow(
+//                 color: Colors.grey,
+//                 spreadRadius: 2,
+//                 blurRadius: 5,
+//                 offset: Offset(0, 3),
+//               ),
+//             ],
+//           ),
+//           child: Center(child: Text("Syllabus")),
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -9,15 +9,19 @@ class PdfPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
         appBar: AppBar(
+          foregroundColor: Colors.white,
           backgroundColor: Colors.blue.shade900,
           centerTitle: true,
           title: const Text("PDF View"),
         ),
         body:
         // link fron internet
-        SfPdfViewer.network(
-          "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf",
-        )
+        Container(
+
+          child: SfPdfViewer.network(
+            "https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf",
+          ),
+        ),
       // SfPdfViewer.asset("asset/proposal.pdf"),
     );
   }

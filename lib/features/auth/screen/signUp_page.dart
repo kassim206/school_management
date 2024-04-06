@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:school_management/core/globel_variable.dart';
 
 import '../../../model/accounts_model.dart';
@@ -70,7 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             style: GoogleFonts.lexend(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14,
-                                color: Colors.black),
+                                color: Colors.white),
                           ),
                         ),
                       ],
@@ -87,7 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: GoogleFonts.lexend(
                               fontWeight: FontWeight.w500,
                               fontSize: w * .06,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         SizedBox(
                           height: h * .034375,
@@ -97,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: GoogleFonts.lexend(
                               fontWeight: FontWeight.w500,
                               fontSize: w * .034,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         SizedBox(
                           height: h * .006875,
@@ -135,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: GoogleFonts.lexend(
                               fontWeight: FontWeight.w500,
                               fontSize: w * .034,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         SizedBox(
                           height: h * .006875,
@@ -175,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: GoogleFonts.lexend(
                               fontWeight: FontWeight.w500,
                               fontSize: w * .034,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         SizedBox(
                           height: h * .006875,
@@ -265,7 +264,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: GoogleFonts.lexend(
                               fontWeight: FontWeight.w500,
                               fontSize: w * .034,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                         SizedBox(
                           height: h * .006875,
@@ -280,7 +279,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             padding: EdgeInsets.only(left: w * .028),
                             child: TextFormField(
                               controller: signphonecontroller,
-                              obscureText: true,
                               style: GoogleFonts.poppins(
                                   color: Color(0xffBBC5CD),
                                   fontSize: w * .039),

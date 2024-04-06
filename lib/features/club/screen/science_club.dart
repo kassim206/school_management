@@ -1,19 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
+import 'package:flutter_scrolling_fab_animated/flutter_scrolling_fab_animated.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widget/eng_data.dart';
 import '../widget/scienceclub_data.dart';
 
-class ScienceClub extends StatelessWidget {
+class ScienceClub extends StatefulWidget {
   const ScienceClub({super.key});
 
+  @override
+  State<ScienceClub> createState() => _ScienceClubState();
+}
+
+class _ScienceClubState extends State<ScienceClub> {
+  ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: ScrollingFabAnimated(
+          color: Colors.green,
+          width: 140,
+          height: 50,
+          icon: const Icon(
+            Icons.add_circle,
+            color: Colors.white,
+            size: 20,
+          ),
+          text: const Text(
+            'Join whatsapp',
+            style: TextStyle(color: Colors.white, fontSize: 10.0),
+          ),
+          onPress: () {
+            String url =
+                "https://chat.whatsapp.com/FklnJk3dRkT6DI58KYrwa3";
+            launch(url);
+          },
+          scrollController: _scrollController,
+          animateIcon: true,
+          inverted: false,
+          radius: 10.0,
+        ),
         backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
@@ -23,7 +53,7 @@ class ScienceClub extends StatelessWidget {
                 AnimatedButton(
                   onPress: () {
                     String url =
-                        "https://chat.whatsapp.com/DKH2AHY5uB7HXeqYYFfVnp";
+                        "https://chat.whatsapp.com/ETCOwcaUpaeCHp3uSwM5Dj";
                     launch(url);
                   },
                   height: 40,
@@ -51,13 +81,14 @@ class ScienceClub extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
-          controller: ScrollController(),
+          controller: _scrollController,
           child: Column(
             children: [
 
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.separated(
+                  controller: ScrollController(),
                   itemCount: img.length,
                   shrinkWrap: true,
                   separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10), // Add a separator between items
@@ -111,7 +142,7 @@ class ScienceClub extends StatelessWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.35, // Use MediaQuery to get screen height
                               width: double.infinity,
-                              child: Image.network(
+                              child: Image.asset(
                                 img2[index]['image'], // Use img[index]['image'] to access the image URL
                                 fit: BoxFit.cover,
                               ),

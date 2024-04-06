@@ -49,7 +49,7 @@ class _CommunityState extends State<Community> {
                                     bottomLeft: Radius.circular(10))),
                           ),
                         ),
-                        const Community1(),
+                         Community1(),
                         // Align(
                         //   alignment: Alignment.bottomCenter,
                         //   child: Row(

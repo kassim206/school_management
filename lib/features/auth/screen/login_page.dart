@@ -11,7 +11,6 @@ import 'authentication.dart';
 final auth1=Authentication();
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -21,17 +20,45 @@ class _LoginPageState extends State<LoginPage> {
   final _auth=FirebaseAuth.instance;
   final signmailcontroller =TextEditingController();
   final signpasswardcontroller =TextEditingController();
-  getUser({required String email, required String password}){
-    FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email, password: password).then((value) =>
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) =>HomeScreen())));
-    FirebaseFirestore.instance.collection("users")
-        .doc("1j6fUueCaSfcTJop5YV0KQXQ2Co2")
-        .update({
-      "lastLogged":DateTime.now()
-    });
+  // getUser({required String email, required String password}){
+  //   FirebaseAuth.instance.signInWithEmailAndPassword(
+  //       email: email, password: password).then((value) =>
+  //       Navigator.push(context, MaterialPageRoute(
+  //           builder: (context) =>HomeScreen())));
+  //   FirebaseFirestore.instance.collection("users")
+  //       .doc("Q2kWPlT4O8UeZZJ5yPPUwXxw3XR2")
+  //       .update({
+  //     "lastLogged":DateTime.now()
+  //   });
+  // }
+      // .doc("1j6fUueCaSfcTJop5YV0KQXQ2Co2")
+  getUser({required String email, required String password}) async {
+    try {
+      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email, password: password);
+      // If login is successful, show a success message
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login Successful'))
+      );
+      // Navigate to the HomeScreen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+      // Update last logged time in Firestore
+      await FirebaseFirestore.instance.collection("users")
+          .doc("Q2kWPlT4O8UeZZJ5yPPUwXxw3XR2")
+          .update({
+        "lastLogged": DateTime.now()
+      });
+    } catch (e) {
+      // If login fails, show an error message
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login Failed. Please try again.'))
+      );
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Login to the\nworld\nAl Jamia',
+                            'Login to the\nworld\nICERP',
                             style: GoogleFonts.lexend(
                                 fontSize: w * .1,
                                 fontWeight: FontWeight.w500,
@@ -163,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: h*0.01,),
+                          SizedBox(height: h*0.02,),
                           InkWell(
                             onTap: (){
                               auth1.signup(context);
@@ -207,7 +234,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         SizedBox(
-                          height: h * .03,
+                          height: h * .02,
                         ),
                         Center(
                           child: Text(

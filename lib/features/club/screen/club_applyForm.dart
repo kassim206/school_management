@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'enggroup_chat.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
+import 'package:school_management/features/club/screen/sports_club.dart';
 import 'events_eng.dart';
+
 class ClubApplicationForm extends StatefulWidget {
   @override
   _ClubApplicationFormState createState() => _ClubApplicationFormState();
@@ -12,18 +14,34 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
   final TextEditingController _controller4 = TextEditingController();
-  void _submit() {
+
+  // Firestore instance
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  void _submit() async {
     // Handle the submission here
     String text1 = _controller1.text;
     String text2 = _controller2.text;
     String text3 = _controller3.text;
     String text4 = _controller4.text;
-    // Do something with the entered values, such as sending them to an API, etc.
-    print('enter name: $text1');
-    print('enter class: $text2');
-    print('enter PhoneNo: $text3');
-    print('Text 4: $text4');
+
+    // Create a map to store the data
+    Map<String, dynamic> userData = {
+      'name': text1,
+      'class': text2,
+      'phoneNo': text3,
+      'sem': text4,
+    };
+
+    // Add data to Firestore
+    try {
+      await _firestore.collection('registerStudent').add(userData);
+      print('Data added to Firestore successfully');
+    } catch (e) {
+      print('Error adding data to Firestore: $e');
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +75,7 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
                   SizedBox(height: 20),
                   TextFormField(
                     controller: _controller4,
-                    decoration: InputDecoration(labelText: 'Text 4'),
+                    decoration: InputDecoration(labelText: 'enter sem'),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
@@ -65,30 +83,24 @@ class _ClubApplicationFormState extends State<ClubApplicationForm> {
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                     ),
                     onPressed: () {
-                      if(
-                          _controller1?.text == "" ||
+                      if (_controller1?.text == "" ||
                           _controller2?.text == "" ||
                           _controller3?.text == "" ||
-                          _controller4?.text == ""
-                      )
-                      {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text("Enter all details")));
-                      }else{
+                          _controller4?.text == "") {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Enter all details")));
+                      } else {
+                        _submit(); // Call the function to save data
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Successfully joined!'),
-                            duration: Duration(milliseconds: 500), // Snackbar duration in milliseconds
+                            duration: Duration(milliseconds: 500),
                           ),
                         );
                         Future.delayed(Duration(milliseconds: 500), () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => ChatScreen()),
-                          // );
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => EventsEng(),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SporstsClub(),));
                         });
                       }
-                      // Add onPressed logic here
                     },
                     child: Text(
                       'Continue to Join here..',

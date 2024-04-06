@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:school_management/features/club/screen/sports_club.dart';
 import '../../../core/globel_variable.dart';
+import 'club_applyForm.dart';
 
 class SportsClubView extends StatelessWidget {
   const SportsClubView({super.key});
@@ -72,7 +73,7 @@ class SportsClubView extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      SporstsClub(),
+                      ClubApplicationForm(),
                 ));
           }, label: Text("Join"),
           icon: Icon(Icons.add_circle,)),

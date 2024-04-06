@@ -2,24 +2,47 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
+import 'package:flutter_scrolling_fab_animated/flutter_scrolling_fab_animated.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:school_management/features/club/widget/eng_data.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../core/globel_variable.dart';
-
 class EventsEng extends StatefulWidget {
-  const EventsEng({super.key});
+   EventsEng({super.key});
 
   @override
   State<EventsEng> createState() => _EventsEngState();
 }
 
 class _EventsEngState extends State<EventsEng> {
+  ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: ScrollingFabAnimated(
+          color: Colors.green,
+          width: 140,
+          height: 50,
+          icon: const Icon(
+            Icons.add_circle,
+            color: Colors.white,
+            size: 20,
+          ),
+          text: const Text(
+            'Join whatsapp',
+            style: TextStyle(color: Colors.white, fontSize: 10.0),
+          ),
+          onPress: () {
+            String url =
+                "https://chat.whatsapp.com/FklnJk3dRkT6DI58KYrwa3";
+            launch(url);
+          },
+          scrollController: _scrollController,
+          animateIcon: true,
+          inverted: false,
+          radius: 10.0,
+        ),
         backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
@@ -38,7 +61,7 @@ class _EventsEngState extends State<EventsEng> {
                     selectedTextColor: Colors.black,
                     transitionType: TransitionType.LEFT_BOTTOM_ROUNDER,
                     textStyle: TextStyle(fontSize: 12),
-                    backgroundColor: Colors.green,
+                    backgroundColor: Colors.blue.shade900,
                     borderColor: Colors.white,
                     borderWidth: 1,
                   ), Positioned(
@@ -59,13 +82,12 @@ class _EventsEngState extends State<EventsEng> {
           ),
         ),
         body: SingleChildScrollView(
-          controller: ScrollController(),
           child: Column(
             children: [
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.separated(
+                  controller: ScrollController(),
                   itemCount: img.length,
                   shrinkWrap: true,
                   separatorBuilder: (BuildContext context, int index) => SizedBox(height: 10), // Add a separator between items
@@ -119,7 +141,7 @@ class _EventsEngState extends State<EventsEng> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.35, // Use MediaQuery to get screen height
                               width: double.infinity,
-                              child: Image.network(
+                              child: Image.asset(
                                 img[index]['image'], // Use img[index]['image'] to access the image URL
                                 fit: BoxFit.cover,
                               ),
@@ -140,49 +162,6 @@ class _EventsEngState extends State<EventsEng> {
                   },
                 ),
               )
-          
-              // Row(
-              //   children: [
-              //     IconButton(
-              //         onPressed: () {},
-              //         icon: const Icon(
-              //           Icons.favorite,
-              //           color: Colors.red,
-              //         )),
-              //     IconButton(
-              //         onPressed: () {},
-              //         icon: const Icon(
-              //           Icons.comment_outlined,
-              //         )),
-              //     IconButton(
-              //         onPressed: () {},
-              //         icon: const Icon(
-              //           Icons.send,
-              //         )),
-              //     Expanded(
-              //         child: Align(
-              //             alignment: Alignment.bottomRight,
-              //             child: IconButton(
-              //                 onPressed: () {},
-              //                 icon: const Icon(Icons.bookmark_border))))
-              //   ],
-              // ),
-              // Container(
-              //   padding: const EdgeInsets.symmetric(horizontal: 16),
-              //   child: Column(
-              //     mainAxisSize: MainAxisSize.min,
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       Container(
-              //         padding: const EdgeInsets.symmetric(vertical: 2),
-              //         child: Text(
-              //           '9/08/2023',
-              //           style: TextStyle(fontSize: 13, color: Colors.grey),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // )
             ],
           ),
         ),

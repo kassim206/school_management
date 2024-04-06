@@ -1,4 +1,5 @@
 // Import necessary packages
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +9,7 @@ import 'package:draggable_home/draggable_home.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/globel_variable.dart';
+import '../../../model/accounts_model.dart';
 import '../../Quiz/quiz.dart';
 import '../../auth/screen/login_page.dart';
 import '../../club/screen/club_screen.dart';
@@ -26,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final CollectionReference user=FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
     return DraggableHome(
@@ -101,53 +104,56 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       )),
                   actions: <Widget>[
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.indigo),
-                        ),
-                        style: TextButton.styleFrom(
-                            elevation: 5,
-                            minimumSize: const Size(128, 46),
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6)),
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ))),
-                    ElevatedButton(
-                        onPressed: () {
-                          GoogleSignIn().signOut().then((value) async {
-                            final SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                            await prefs.remove('isLogged');
+                    Row(children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.indigo),
+                          ),
+                          style: TextButton.styleFrom(
+                              elevation: 5,
+                              minimumSize: const Size(128, 46),
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6)),
+                              textStyle: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ))),
+                      ElevatedButton(
+                          onPressed: () {
+                            GoogleSignIn().signOut().then((value) async {
+                              final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                              await prefs.remove('isLogged');
 
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginPage(),
-                                ),
-                                    (route) => false);
-                          });
-                        },
-                        child: const Text(
-                          "Yes",
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        style: TextButton.styleFrom(
-                            elevation: 5,
-                            minimumSize: const Size(128, 46),
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6)),
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ))),
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginPage(),
+                                  ),
+                                      (route) => false);
+                            });
+                          },
+                          child: const Text(
+                            "Yes",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          style: TextButton.styleFrom(
+                              elevation: 5,
+                              minimumSize: const Size(128, 46),
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6)),
+                              textStyle: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ))),
+                    ],)
+
                   ]);
             },
           );
@@ -178,6 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
   }
   Widget headerWidget(BuildContext context) {
+    print(currentuser);
     return Container(
       color: Colors.blue.shade900,
       child: Column(
@@ -201,13 +208,14 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Hello User',
+                currentuser != null ? 'Hello User!${currentuser!.userName}' : 'Hello User',
                 style: GoogleFonts.lexend(
                   fontWeight: FontWeight.bold,
                   fontSize: w * 0.07,
                   color: Colors.white,
                 ),
               ),
+
               SizedBox(
                 height: h * 0.025,
               ),

@@ -1,80 +1,250 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
+import 'profile_screen.dart';
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.white,
         backgroundColor: Colors.indigo,
-        title: Text("Account"),
+        foregroundColor: Colors.white,
+        title: Text('Account Settings'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
-            CircleAvatar(
-              radius: 70,
-              backgroundImage: AssetImage('assets/img/courseimg.png'),
-            ),
-            const SizedBox(height: 20),
-            itemProfile('Name', 'User ', CupertinoIcons.person),
-            const SizedBox(height: 10),
-            itemProfile('Phone', '03107085816', CupertinoIcons.phone),
-            const SizedBox(height: 10),
-            itemProfile('Address', 'abc address, xyz city', CupertinoIcons.location),
-            const SizedBox(height: 10),
-            itemProfile('Email', 'user@gmail.com', CupertinoIcons.mail),
-            const SizedBox(height: 20,),
-            SizedBox(
-              width: double.infinity,
-              child:Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.blue.shade900,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child:  Center(child: Text('Edit Profile',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+            Text(
+              "Settings",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
               ),
-            )
+            ),
+            SizedBox(height: 40),
+            Text(
+              "Account",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 20),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
+              },
+              child: Row(
+                children: [
+                  Image.asset("assets/img/courseimg.png", width: 40, height: 70),
+                  SizedBox(width: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "User Name",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        "username@gmail.com",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_forward),
+                ],
+              ),
+            ),
+            SizedBox(height: 40),
+            Text(
+              "Settings",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 20),
+            SettingItem(
+              title: "Language",
+              icon: Icons.language,
+              bgColor: Colors.orange.shade100,
+              iconColor: Colors.orange,
+              value: "English",
+              onTap: () {},
+            ),
+            SizedBox(height: 20),
+            SettingItem(
+              title: "Notifications",
+              icon: Icons.notifications,
+              bgColor: Colors.blue.shade100,
+              iconColor: Colors.blue,
+              onTap: () {},
+              value: '',
+            ),
+            SizedBox(height: 20),
+            SettingSwitch(
+              title: "Dark Mode",
+              icon: Icons.dark_mode,
+              bgColor: Colors.purple.shade100,
+              iconColor: Colors.purple,
+              value: isDarkMode,
+              onTap: (value) {
+                setState(() {
+                  isDarkMode = value;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+            SettingItem(
+              title: "Help",
+              icon: Icons.help,
+              bgColor: Colors.red.shade100,
+              iconColor: Colors.red,
+              onTap: () {},
+              value: '',
+            ),
           ],
         ),
       ),
     );
   }
+}
 
-  itemProfile(String title, String subtitle, IconData iconData) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 5),
-                color: Colors.deepOrange.withOpacity(.2),
-                spreadRadius: 2,
-                blurRadius: 10
-            )
-          ]
+class SettingItem extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color bgColor;
+  final Color iconColor;
+  final String value;
+  final VoidCallback onTap;
+
+  const SettingItem({
+    required this.title,
+    required this.icon,
+    required this.bgColor,
+    required this.iconColor,
+    required this.value,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: iconColor,
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right),
+          ],
+        ),
       ),
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(subtitle),
-        leading: Icon(iconData),
-        trailing: Icon(Icons.arrow_forward, color: Colors.grey.shade400),
-        tileColor: Colors.white,
+    );
+  }
+}
+
+class SettingSwitch extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color bgColor;
+  final Color iconColor;
+  final bool value;
+  final ValueChanged<bool> onTap;
+
+  const SettingSwitch({
+    required this.title,
+    required this.icon,
+    required this.bgColor,
+    required this.iconColor,
+    required this.value,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onTap(!value),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: iconColor,
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Switch(
+              value: value,
+              onChanged: onTap,
+              activeColor: Theme.of(context).toggleableActiveColor,
+            ),
+          ],
+        ),
       ),
     );
   }

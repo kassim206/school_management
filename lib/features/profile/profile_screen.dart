@@ -19,7 +19,9 @@ class _AccountScreenState extends State<AccountScreen> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: const Icon(Icons.arrow_back),
         ),
         title: Text('Account Settings'),
@@ -32,7 +34,7 @@ class _AccountScreenState extends State<AccountScreen> {
             const Text(
               "Settings",
               style: TextStyle(
-                fontSize: 36,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -40,7 +42,7 @@ class _AccountScreenState extends State<AccountScreen> {
             const Text(
               "Account",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -84,7 +86,7 @@ class _AccountScreenState extends State<AccountScreen> {
             const Text(
               "Settings",
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 22,
                 fontWeight: FontWeight.w500,
               ),
             ),

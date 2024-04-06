@@ -20,51 +20,6 @@ class LocationScreen extends StatelessWidget {
         children: [
           Column(
             children: [
-              // GestureDetector(
-              //   onTap: (){
-              //     Navigator.push(context, MaterialPageRoute(builder: (context) => UniversityMap(),));
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: Container(
-              //       width: w,
-              //       height: h*0.16,
-              //       decoration: BoxDecoration(
-              //         color: Colors.white,
-              //         borderRadius: BorderRadius.circular(12),
-              //           boxShadow: [
-              //       BoxShadow(
-              //       color: Colors.grey.withOpacity(0.5),
-              //             spreadRadius: 2,
-              //             blurRadius: 5,
-              //             offset: const Offset(0, 2),
-              //           ),
-              //           ],
-              //       ),
-              //       child: Row(
-              //         children: [
-              //           Container(
-              //             width: w*0.35,
-              //             height: h*0.198,
-              //             decoration: BoxDecoration(
-              //                 color: Colors.white,
-              //               image: DecorationImage(image:
-              //               AssetImage("assets/img/calicut.jpg"),fit: BoxFit.cover),
-              //               borderRadius: BorderRadius.only(topLeft: Radius.circular(12),
-              //                   bottomLeft: Radius.circular(12))
-              //             ),
-              //           ),
-              //           SizedBox(width: w*0.02,),
-              //           Expanded(
-              //             child: Container(
-              //               child: Text("University of, Kozhikode, Thenhipalam, Kerala 673636"),
-              //             ),
-              //           )
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
               GestureDetector(
                 onTap: () {
                   _launchURL(
@@ -123,7 +78,6 @@ class LocationScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               GestureDetector(
                 onTap: (){
                   _launchURL(
